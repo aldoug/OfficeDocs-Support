@@ -73,25 +73,9 @@ This issue occurs for one of the following reasons:
 
 ## Solution
 
-Microsoft Exchange Online automatically resolves both conditions without any action being required by customers. It does this by suppressing the ASF rule for SPF hard fail. However, you can manually make sure that the ASF rule is enforced.
-
-To do this, take one of the following actions, as appropriate for your situation:
-
-- If the primary MX record for your domain doesn't point to Exchange Online Protection (EOP)
-
-    Make sure that the domain's primary MX record points to EOP and not to the on-premises mail server or third-party filter.
-
-    If the domain's primary MX record can't be pointed to EOP, EOP will automatically detect when it's not the primary MX record and stop enforcing the ASF option for SPF hard fail. When the MX record points to EOP, the service detects this and starts enforcing the ASF option.
-
-- If email is routed out of EOP and then back to EOP
-
-    Make sure that your connectors are configured correctly to maintain the required headers from EOP to an on-premises mail server and then from the on-premises mail server back to EOP. This maintains the original spam verdict from the first time that a message was scanned in EOP so that it's reused when it's sent back to EOP the second time.
-
-    If the necessary connectors aren't created, EOP will automatically detect when this situation occurs and stop enforcing the ASF option for SPF hard fail. When the required connectors are created, the service detects this and starts enforcing the ASF option.
-
-    For more information about connectors, see [Configure mail flow using connectors in Office 365](https://technet.microsoft.com/library/ms.exch.eac.connectorselection%28v=exchg.150%29.aspx).
-
-    For more information about centralized mail control options, see [Transport options in Exchange 2013 hybrid deployments](https://technet.microsoft.com/library/jj659055%28v=exchg.150%29.aspx).
+ Microsoft no longer recomends the use of the ASF options as these are due to be deprecated in future. See https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/advanced-spam-filtering-asf-options?view=o365-worldwide
+ 
+  If the MX record points to a service other than EOP, Microsoft recomends the use of https://docs.microsoft.com/en-us/exchange/mail-flow-best-practices/use-connectors-to-configure-mail-flow/enhanced-filtering-for-connectors. This technology will enable email authentication verdicts to be respected upstream of EOP, and will mark authentication failing emails accordingly. Enhanced filtering for connector verdicts will not be respected with the ASF option enabled, leading to false positive detections.
 
 ## More information
 
